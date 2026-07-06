@@ -2,9 +2,17 @@ from rest_framework import serializers
 from .models import *
 
 class SingerSerializer(serializers.ModelSerializer):
+    id = serializers.CharField(read_only=True)
+
+    songs = serializers.SerializerMethodField(read_only=True)
+
+    def get_songs(self, instance):
+        serializer = SongSerializer(instance.songs, many=True)
+        return serializer.data
+
     class Meta:
         model = Singer
-        fields = '__all__'
+        fields = ['id', 'name', 'content', 'debut', 'songs']
 
 class SongSerializer(serializers.ModelSerializer):
     class Meta:

@@ -10,7 +10,7 @@ class Singer(models.Model):
 
 class Song(models.Model):
     id = models.AutoField(primary_key=True)
-    singer = models.ForeignKey(Singer, on_delete = models.CASCADE)
+    singer = models.ForeignKey(Singer, blank=False, null=False, on_delete = models.CASCADE, related_name='songs')
     name = models.CharField(max_length=50)
     release = models.DateField()
     content = models.TextField()
