@@ -32,11 +32,11 @@ def song_read_create(request, singer_id):
         serializer = SongSerializer(songs, many=True)
         return Response(data=serializer.data)
     
-    if request.method == 'POST':
+    elif request.method == 'POST':
         serializer = SongSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
+        if serializer.is_valid():
             serializer.save(singer=singer)
-            return Response(data=serializer.data)
+        return Response(serializer.data)
         
 
 @api_view(['GET', 'PATCH', 'DELETE'])
